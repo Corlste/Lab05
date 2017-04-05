@@ -5,13 +5,17 @@
 package it.polito.tdp.anagrammi.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import it.polito.anagrammi.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class AnagrammiController {
+	Model m;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -36,6 +40,17 @@ public class AnagrammiController {
 
     @FXML
     void doAnagrammi(ActionEvent event) {
+    	
+    	m.findAnagrams(txtInput.getText());
+    	List<String> aR = m.getAnagrammiR();
+    	List<String> aW = m.getAnagrammiW();
+    	
+    	for(String s: aR){
+    		txtAnagrammiCorretti.appendText(s+"/");
+    	}
+    	for(String s: aW){
+    		txtAnagrammiErrati.appendText(s+"/n");
+    	}
 
     }
 
@@ -56,4 +71,10 @@ public class AnagrammiController {
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Anagrammi.fxml'.";
 
     }
+
+	public void setModel(Model m2) {
+		// TODO Auto-generated method stub
+		this.m=m2;
+		
+	}
 }
